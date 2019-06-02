@@ -43,4 +43,22 @@ public class Flight {
     public GregorianCalendar getDepartureTime() {
         return this.departureTime;
     }
+
+    public Boolean hasAvailableCapacity() {
+        return this.plane.getPlaneType().getCapacity() > this.getPassengers().size() ? true : false;
+    }
+
+    public int getAvailableCapacity() {
+        return this.plane.getPlaneType().getCapacity() - this.passengers.size();
+    }
+
+    public void bookPassenger(Passenger passenger) {
+        if (this.hasAvailableCapacity()) {
+            this.passengers.add(passenger);
+        }
+    }
+
+    public int getPassengerCount() {
+        return this.passengers.size();
+    }
 }

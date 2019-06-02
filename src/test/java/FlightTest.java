@@ -11,9 +11,11 @@ public class FlightTest {
     private Flight flight;
     private Plane plane ;
     private GregorianCalendar dateTime;
+    private Passenger passenger;
 
     @Before
     public void setUp() {
+        passenger = new Passenger("Darren Shankland", 3);
         dateTime = new GregorianCalendar(2019, 6, 01, 17, 22);
         plane = new Plane(PlaneType.CONCORDE);
         flight = new Flight(plane, "FRN123", "SFO", "GLA", dateTime);
@@ -42,5 +44,22 @@ public class FlightTest {
     @Test
     public void hasDepartureTime() {
         assertEquals(dateTime, flight.getDepartureTime());
+    }
+
+    @Test
+    public void hasAvailableCapacity() {
+        assertEquals(true, flight.hasAvailableCapacity());
+    }
+
+    @Test
+    public void canBookPassengerOnFlight() {
+        flight.bookPassenger(passenger);
+        assertEquals(127, flight.getAvailableCapacity());
+    }
+
+    @Test
+    public void canCountPassengers() {
+        flight.bookPassenger(passenger);
+        assertEquals(1, flight.getPassengerCount());
     }
 }
