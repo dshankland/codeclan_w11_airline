@@ -60,5 +60,10 @@ public class FlightManagerTest {
         assertEquals(lowestBookedSeatNumber, flightManager.getFlight().getPassengers().get(0).getSeatNumber());
     }
 
-
+    @Test
+    public void canGetPassengerBySeatNumber() {
+        flightManager.bubbleSortPassengers();
+        int seatNumber = passenger1.getSeatNumber();
+        assertEquals(passenger1, flightManager.binarySeatSearch(flightManager.getFlight().getPassengers(), seatNumber));
+    }
 }

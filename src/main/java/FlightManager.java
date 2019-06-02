@@ -1,3 +1,4 @@
+import java.beans.PersistenceDelegate;
 import java.util.ArrayList;
 
 public class FlightManager {
@@ -58,28 +59,38 @@ public class FlightManager {
         return lowestBookedSeatNumber;
     }
 
-    public Passenger binarySeatSearch(ArrayList<Integer> array, int seatNumber){
+    public int getHighestBookedSeatNumber() {
+        int highestBookedSeatNumber = 0;
+        for (Passenger passenger : this.getFlight().getPassengers()) {
+            if (passenger.getSeatNumber() > highestBookedSeatNumber) {
+                highestBookedSeatNumber = passenger.getSeatNumber();
+            }
+        }
+        return highestBookedSeatNumber;
+    }
+
+    public Passenger binarySeatSearch(ArrayList<Passenger> array, int seatNumber){
         if (array.size() == 0){
-            return false;
+            return null;
         }
 
         int midIndex = 0;
         if (array.size() > 1) {
-            midIndex = array.size() / 2);
+            midIndex = array.size() / 2;
         }
 
-        int midPoint = array.get(midIndex);
+        int midPointSeatNumber = array.get(midIndex).getSeatNumber();
 
-        if (seatNumber == midPoint){
-            return true;
+        if (seatNumber == midPointSeatNumber){
+            return array.get(midIndex);
         }
 
-        ArrayList<Integer> newSearchArea;
+        ArrayList<Passenger> newSearchArea;
 
-        if (seatNumber < midPoint){
-            newSearchArea = new ArrayList<Integer>(array.subList(0, midIndex));
+        if (seatNumber < midPointSeatNumber){
+            newSearchArea = new ArrayList<Passenger>(array.subList(0, midIndex));
         } else {
-            newSearchArea = new ArrayList<Integer>(array.subList(midIndex + 1, array.size()));
+            newSearchArea = new ArrayList<Passenger>(array.subList(midIndex + 1, array.size()));
         }
         return binarySeatSearch(newSearchArea, seatNumber);
     }
