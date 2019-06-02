@@ -21,4 +21,16 @@ public class PassengerTest {
     public void hasBags() {
         assertEquals(2, passenger.getBags());
     }
+
+    @Test
+    public void canSetSeatNumber() {
+        passenger.setSeatNumber(12);
+        assertEquals(12, passenger.getSeatNumber());
+    }
+
+    @Test
+    public void canSetFlightNumber() {
+        passenger.setFlightNumber("ABC123");
+        assertEquals("ABC123", passenger.getFlightNumber());
+    }
 }

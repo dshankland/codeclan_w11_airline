@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Random;
 
 public class Flight {
-
 
     private ArrayList<Passenger> passengers;
     private Plane plane;
@@ -10,6 +10,7 @@ public class Flight {
     private String destination;
     private String departureAirport;
     private GregorianCalendar departureTime;
+    private ArrayList<Integer> seats;
 
     public Flight(Plane plane, String flightNumber, String destination, String departureAirport, GregorianCalendar departureTime) {
         this.passengers = new ArrayList<Passenger>();
@@ -18,6 +19,10 @@ public class Flight {
         this.destination = destination;
         this.departureAirport = departureAirport;
         this.departureTime = departureTime;
+        this.seats = new ArrayList<Integer>();
+        for (int seatNo=1; seatNo <= this.plane.getPlaneType().getCapacity(); seatNo++) {
+            this.seats.add(seatNo);
+        }
     }
 
     public ArrayList<Passenger> getPassengers() {
@@ -52,9 +57,21 @@ public class Flight {
         return this.plane.getPlaneType().getCapacity() - this.passengers.size();
     }
 
+    public ArrayList<Integer> getSeats() {
+        return this.seats;
+    }
+
+    public int getAvailableSeat() {
+        Random rand = new Random();
+        int index = rand.nextInt(this.getSeats().size() + 1);
+        return this.getSeats().remove(index);
+    }
+
     public void bookPassenger(Passenger passenger) {
         if (this.hasAvailableCapacity()) {
             this.passengers.add(passenger);
+            passenger.setFlightNumber(this.flightNumber);
+            passenger.setSeatNumber(this.getAvailableSeat());
         }
     }
 
