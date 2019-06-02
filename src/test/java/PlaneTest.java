@@ -18,8 +18,8 @@ public class PlaneTest {
     }
 
     @Test
-    public void hasOperatingWeight() {
-        assertEquals(92080, plane.getPlaneType().getOperatingWeight());
+    public void hasTakeOffWeight() {
+        assertEquals(185000, plane.getPlaneType().getMaximumTakeOffWeight());
     }
 
     @Test
